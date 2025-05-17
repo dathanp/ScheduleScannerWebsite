@@ -3,7 +3,7 @@
 import Navbar from '@/components/Navbar';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-
+// test
 export default function Home() {
   const [isDark, setIsDark] = useState(false);
   const [colorMode, setColorMode] = useState<'normal' | 'colorblind'>('normal');
