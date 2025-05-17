@@ -5,13 +5,16 @@ import { motion } from 'framer-motion';
 
 export default function Navbar({
   isDark,
+  colorMode,
   onDarkToggle,
   onColorBlindToggle,
 }: {
   isDark: boolean;
+  colorMode: 'normal' | 'colorblind';
   onDarkToggle: () => void;
   onColorBlindToggle: () => void;
 }) {
+
   const [show, setShow] = useState(true);
   const [scrollY, setScrollY] = useState(0);
 
@@ -29,23 +32,21 @@ export default function Navbar({
     <motion.nav
       initial={{ opacity: 1 }}
       animate={{ opacity: show ? 1 : 0 }}
-      className="fixed top-0 left-0 w-full z-50 bg-white/70 dark:bg-black/70 backdrop-blur shadow-md px-6 py-3 flex justify-between items-center transition duration-300"
+      className="no-colorblind fixed top-0 left-0 w-full z-50 bg-white/70 dark:bg-black/70 backdrop-blur shadow-md px-6 py-3 flex justify-between items-center transition duration-300"
     >
       <h1 className="text-xl font-bold">Schedule Scanner</h1>
       <div className="flex space-x-3 items-center">
         {/* Light/Dark Toggle */}
-        <div className="flex items-center space-x-2 bg-white dark:bg-black px-2 py-1 rounded">
+        <div className="flex items-center space-x-2 px-2 py-1 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-black">
           <span className="text-sm">Light</span>
           <button
-            onClick={() => {
-              onDarkToggle();
-            }}
+            onClick={onDarkToggle}
             className={`relative inline-flex h-6 w-11 items-center rounded-full transition ${
-              isDark ? 'bg-gray-600' : 'bg-gray-300'
+              isDark ? 'bg-neutral-700' : 'bg-neutral-400'
             }`}
           >
             <span
-              className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+              className={`inline-block h-4 w-4 transform rounded-full bg-white border border-gray-400 transition-transform ${
                 isDark ? 'translate-x-5' : 'translate-x-1'
               }`}
             />
@@ -56,10 +57,15 @@ export default function Navbar({
         {/* Colorblind Toggle */}
         <button
           onClick={onColorBlindToggle}
-          className="px-3 py-1 bg-gray-200 dark:bg-gray-800 rounded text-sm"
+          className={`px-3 py-1 rounded text-sm border transition ${
+            colorMode === 'colorblind'
+              ? 'bg-black text-white border-black dark:bg-white dark:text-black dark:border-white'
+              : 'bg-gray-100 text-black border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600'
+          }`}
         >
-          Color Mode
+          Grey Scale
         </button>
+
       </div>
     </motion.nav>
   );

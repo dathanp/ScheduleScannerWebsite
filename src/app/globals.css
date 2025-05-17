@@ -3,10 +3,13 @@
 
 @tailwind utilities;
 
-body.colorblind * {
+/* Colorblind mode only applies inside content container */
+.colorblind-affected * {
   filter: grayscale(100%) contrast(1.2) !important;
+  transition: filter 0.3s ease;
 }
 
+/* Keep transitions smooth for all content */
 * {
   transition: background-color 0.3s, color 0.3s, filter 0.3s ease;
 }
