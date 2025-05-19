@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
+
 
 export default function Navbar({
   isDark,
@@ -34,7 +36,15 @@ export default function Navbar({
       animate={{ opacity: show ? 1 : 0 }}
       className="no-colorblind fixed top-0 left-0 w-full z-50 bg-white/70 dark:bg-black/70 backdrop-blur shadow-md px-6 py-3 flex justify-between items-center transition duration-300"
     >
-      <h1 className="text-xl font-bold">Schedule Scanner</h1>
+      <div className="flex items-center space-x-6">
+        <h1 className="text-xl font-bold">Sched Scan</h1>
+        <nav className="hidden md:flex space-x-4 text-sm font-medium">
+          <Link href="/" className="text-gray-700 dark:text-gray-200 hover:underline">Home</Link>
+          <Link href="/support" className="text-gray-700 dark:text-gray-200 hover:underline">Support</Link>
+          <Link href="/privacy" className="text-gray-700 dark:text-gray-200 hover:underline">Privacy</Link>
+        </nav>
+      </div>
+
       <div className="flex space-x-3 items-center">
         {/* Light/Dark Toggle */}
         <div className="flex items-center space-x-2 px-2 py-1 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-black">

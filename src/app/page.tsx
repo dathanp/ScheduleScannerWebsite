@@ -3,6 +3,7 @@
 import Navbar from '@/components/Navbar';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 export default function Home() {
   const [isDark, setIsDark] = useState(false);
@@ -23,7 +24,7 @@ export default function Home() {
   }, [isDark, colorMode]);
 
   return (
-    <main className="snap-y snap-mandatory h-screen overflow-y-scroll scroll-smooth text-center bg-white text-black dark:bg-black dark:text-white transition-colors duration-500">
+    <main className="snap-y snap-proximity h-screen overflow-y-scroll scroll-smooth text-center bg-white text-black dark:bg-black dark:text-white transition-colors duration-500">
       <Navbar
         isDark={isDark}
         colorMode={colorMode}
@@ -42,7 +43,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="font-bold mb-4 text-[clamp(2.5rem,8vw,4rem)] leading-tight max-w-3xl"
           >
-            Schedule Scanner
+            Sched Scan
           </motion.h1>
 
           <motion.p
@@ -55,7 +56,7 @@ export default function Home() {
           </motion.p>
         </section>
 
-        {/* FEATURES */}
+        {/* FEATURES SECTION */}
         <section className="h-screen snap-start flex flex-col md:flex-row items-center justify-center gap-12 px-6 bg-gray-50 dark:bg-neutral-900">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -82,6 +83,66 @@ export default function Home() {
           </motion.div>
         </section>
 
+        {/* SCREENSHOTS SECTION */}
+        <section className="min-h-screen snap-start w-full py-20 bg-gradient-to-b from-white to-gray-100 dark:from-black dark:to-neutral-900">
+          <h2 className="text-5xl font-bold text-left mb-12 px-6 text-black dark:text-white">
+            Get to know Sched Scanner.
+          </h2>
+
+          <div className="flex gap-6 overflow-x-auto snap-x snap-proximity scrollbar-hide scroll-smooth pb-4 px-6 sm:px-12 max-w-full">
+            {/* Card Template */}
+            {[
+              {
+                title: 'Home Screen',
+                subtitle: 'Your Schedule at a Glance.',
+                image: '/Homepage.PNG',
+                bg: 'bg-black text-white',
+                textColor: 'text-gray-400',
+              },
+              {
+                title: 'Sharing',
+                subtitle: 'Share Your Schedule Seamlessly.',
+                image: '/ShareSched.PNG',
+                bg: 'bg-blue-900 text-white',
+                textColor: 'text-blue-300',
+              },
+              {
+                title: 'Saved Scans',
+                subtitle: 'Review Past Scans.',
+                image: '/SaveScan.PNG',
+                bg: 'bg-gray-900 text-white',
+                textColor: 'text-gray-400',
+              },
+              {
+                title: 'Calendar',
+                subtitle: 'Edit and Add Events with Ease.',
+                image: '/ManageCal.PNG',
+                bg: 'bg-gray-100 dark:bg-neutral-800 text-black dark:text-white',
+                textColor: 'text-gray-500 dark:text-gray-400',
+              },
+            ].map(({ title, subtitle, image, bg, textColor }, idx) => (
+              <div
+                key={idx}
+                className={`min-w-[320px] max-w-[320px] h-[700px] rounded-3xl shadow-xl snap-center shrink-0 flex flex-col overflow-hidden hover:shadow-2xl transition-shadow duration-300 ${bg}`}
+              >
+                <div className="p-5 pb-0">
+                  <h3 className={`text-sm uppercase mb-2 ${textColor}`}>{title}</h3>
+                  <h4 className="text-xl font-semibold leading-tight">{subtitle}</h4>
+                </div>
+                <div className="flex-1 flex justify-center items-end pb-5 px-4">
+                  <Image
+                    src={image}
+                    alt={title}
+                    width={280}
+                    height={640}
+                    className="h-full object-contain"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* PRIVACY SECTION */}
         <section className="h-screen snap-start flex flex-col justify-center items-center px-6 bg-white dark:bg-black text-center">
           <motion.h2
@@ -97,6 +158,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
+            viewport={{ once: true }}
             className="text-[clamp(1rem,2.5vw,1.25rem)] max-w-2xl text-gray-700 dark:text-gray-300 mb-6"
           >
             Everything you scan stays on your device. No data is sent, stored, or tracked.
@@ -110,7 +172,6 @@ export default function Home() {
             View Privacy Policy
           </a>
         </section>
-
 
         {/* CALL TO ACTION */}
         <section className="min-h-[80vh] snap-start flex flex-col items-center justify-center px-6 bg-white dark:bg-black">
@@ -131,11 +192,11 @@ export default function Home() {
           </a>
         </section>
       </div>
-      {/* FOOTER (no snap, minimal height) */}
+
+      {/* FOOTER */}
       <footer className="snap-none text-center py-6 text-sm text-gray-500 bg-white dark:bg-black border-t border-gray-200 dark:border-gray-700">
         © {new Date().getFullYear()} Schedule Scanner. All rights reserved.
       </footer>
-      
     </main>
   );
 }
